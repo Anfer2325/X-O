@@ -7,9 +7,20 @@ public class Menu {
     
     public static void main(String [] args){
         Scanner leer = new Scanner(System.in);
-        String simbolo1 = "X";
-        String simbolo2= "O";
-        Tablero tablero =new Tablero();
+        char simbolo1 ;
+        char simbolo2;
+        String nombre1;
+        String nombre2;
+        System.out.println("Ingrese el nombre del jugador 1: ");
+        nombre1=leer.next();
+        System.out.println("Ingrese el simbolo del jugador 1 : ");
+        simbolo1=leer.next().charAt(0);
+        System.out.println("Ingrese el nombre del jugador 2: ");
+        nombre2=leer.next();
+        System.out.println("Ingrese el simbolo del jugador 2 : ");
+        simbolo2=leer.next().charAt(0);
+        
+        Tablero tablero =new Tablero(simbolo1,simbolo2,nombre1,nombre2);
         do{
         
         System.out.println("M E N U ");
@@ -52,8 +63,9 @@ public class Menu {
                  int fila = leer.nextInt();
                  System.out.println("Ingrese la columna donde desea colocar");
                  int columna = leer.nextInt();
-                 tablero.MovimientoJugador1(fila, columna);
-                 if(tablero.encontrarGanadorGeneral(simbolo1, fila, columna)){
+                 tablero.MarcarJugadaJugador1(fila, columna);
+                 if(tablero.revisarJuego(simbolo1, fila, columna)){
+                     tablero.imprimirtablero();
                      System.out.println("Gano el jugador 1");
                      try{
                      tablero.updateLista(simbolo1, simbolo2, simbolo1);}catch(IOException e){
@@ -77,8 +89,9 @@ public class Menu {
                  int fila = leer.nextInt();
                  System.out.println("Ingrese la columna donde desea colocar");
                  int columna = leer.nextInt();
-                 tablero.MovimientoJugador2(fila, columna);
-                 if(tablero.encontrarGanadorGeneral(simbolo2, fila, columna)){
+                 tablero.MarcarJugadaJugador2(fila, columna);
+                 if(tablero.revisarJuego(simbolo2, fila, columna)){
+                     tablero.imprimirtablero();
                      System.out.println("gano el jugador 2");
                      try{
                      tablero.updateLista(simbolo1, simbolo2, simbolo2);}catch(IOException e){
@@ -107,13 +120,13 @@ public class Menu {
                    
                        case 1: 
                            System.out.println("Ingrese el nuevo simbolo para jugador 1 : ");
-                            simbolo1 = leer.next();
+                            simbolo1 = leer.next().charAt(0);
                             tablero.cambiarSimboloJugador1(simbolo1);
                            break;
                            
                        case 2: 
                            System.out.println("Ingrese el nuevo simbolo para jugador 2 : ");
-                           simbolo2 = leer.next();
+                           simbolo2 = leer.next().charAt(0);
                            tablero.cambiarSimboloJugador2(simbolo2);
                            break;
                            
